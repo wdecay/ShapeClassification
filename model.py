@@ -35,11 +35,11 @@ def build_model(num_classes,
     optimizer = tf.keras.optimizers.Adam(learning_rate=1.e-3)
     @tf.function
     def loss_fn(truth, pred):
-        return tf.reduce_sum(tf.nn.sparse_softmax_cross_entropy_with_logits(
-            labels = tf.cast(tf.squeeze(truth), tf.int32),
-            logits = pred))
+        return tf.nn.sparse_softmax_cross_entropy_with_logits(
+            labels = tf.cast(tf.squeeze(truth, axis=-1), tf.int32),
+            logits = pred)
 
-    model.compile(optimizer=optimizer, loss = loss_fn, metrics=['accuracy'])
+    model.compile(optimizer=optimizer, loss = loss_fn, metrics=['sparse_categorical_accuracy'])
     return model
 
 

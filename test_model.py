@@ -19,3 +19,5 @@ test_dataset = dataset.concatenate(
     .map(get_translation_augmentor(rng), num_parallel_calls=AUTOTUNE))
 
 model.evaluate(test_dataset.batch(8))
+
+# print(model.predict(test_dataset.batch(8).take(1)))
